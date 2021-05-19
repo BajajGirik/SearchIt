@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+import webbrowser
+from time import sleep
 
 # The first url is the one we check the product availability
 # The rest three are for testing purposes only
@@ -34,7 +36,9 @@ for txt in txts:
     if any(list in txt for list in lists) and txt.get('disabled') == None:
         flag = 1
         print("Product Available")
+        sleep(2)
+        webbrowser.open(url)
         break
 
 if flag == 0:
-    print("No")
+    print("Not Available")

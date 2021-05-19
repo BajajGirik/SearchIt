@@ -22,3 +22,12 @@ soup = BeautifulSoup(r.content, 'html.parser')
 # This will generate a list of all the a tags
 
 txts = soup.find_all(class_ = '_2KpZ6l')
+lists = ['ADD TO CART', 'BUY NOW']
+flag = 0
+
+for txt in txts:
+    if any(list in txt for list in lists):
+        flag = 1
+        break
+
+print(f"Product Available: {url2}")

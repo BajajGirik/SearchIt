@@ -33,7 +33,7 @@ lists = ['ADD TO CART', 'BUY NOW']
 flag = 0
 
 for txt in txts:
-    if any(list in txt for list in lists) and txt.get('disabled') == None:
+    if any(list in txt.get_text() for list in lists) and not txt.get('disabled') == None:
         flag = 1
         print("Product Available")
         sleep(2)

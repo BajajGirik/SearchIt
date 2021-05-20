@@ -23,11 +23,20 @@ googleSearch = driver.page_source
 driver.close()
 
 soup = BeautifulSoup(googleSearch, 'html.parser')
+url = ''
+searchResults = soup.find_all(class_ = 'yuRUbf')
 
-firstSearch = soup.find(class_ = 'yuRUbf')
-url = firstSearch.a.get('href')
 
+# Searching for the link which has desired content
+for searchResult in searchResults:
+    print(searchResult.nextSibling.div)
+    print("\n\n\n\n\n\n")
+    if searchResult.nextSibling.div != None:
+        url = searchResult.a.get('href')
+        break
 
+print(url)    
+'''
 r = requests.get(url)
 soup = BeautifulSoup(r.content, 'html.parser')
 
@@ -59,3 +68,6 @@ for txt in txts:
 
 if flag == 0:
     print("Not Available")
+    sleep(1)
+    webbrowser.open(url)
+'''

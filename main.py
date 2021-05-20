@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
 import webbrowser
 from time import sleep
 
@@ -16,13 +17,18 @@ for new_n in new_ns:
 
 url += 'flipkart'
 
-googleSearch = requests.get(url)
-soup = BeautifulSoup(googleSearch.content, 'html.parser')
+driver = webdriver.Chrome(executable_path = '/usr/local/bin/chromedriver')
+driver.get(url)
+googleSearch = driver.page_source
+driver.close()
+
+soup = BeautifulSoup(googleSearch, 'html.parser')
 
 firstSearch = soup.find(class_ = 'yuRUbf')
+print(firstSearch)
 
 
-
+'''
 r = requests.get(url)
 soup = BeautifulSoup(r.content, 'html.parser')
 
@@ -45,7 +51,7 @@ lists = ['ADD TO CART', 'BUY NOW']
 flag = 0
 
 for txt in txts:
-    if any(list in txt for list in lists) and txt.get('disabled') == None:
+    if any(list in txt.get_text() for list in lists) and txt.get('disabled') == None:
         flag = 1
         print("Product Available")
         sleep(2)
@@ -54,3 +60,4 @@ for txt in txts:
 
 if flag == 0:
     print("Not Available")
+'''

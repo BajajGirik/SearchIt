@@ -25,10 +25,9 @@ driver.close()
 soup = BeautifulSoup(googleSearch, 'html.parser')
 
 firstSearch = soup.find(class_ = 'yuRUbf')
-print(firstSearch)
+url = firstSearch.a.get('href')
 
 
-'''
 r = requests.get(url)
 soup = BeautifulSoup(r.content, 'html.parser')
 
@@ -60,4 +59,3 @@ for txt in txts:
 
 if flag == 0:
     print("Not Available")
-'''

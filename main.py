@@ -7,14 +7,21 @@ def searchQuery(str):
     str += '+'
     return str
 
-n = input().split()
-new_ns = list(map(searchQuery,n[:-1]))
+n = input("What would you like to buy today: ").split()
+new_ns = list(map(searchQuery,n))
 url = 'https://www.google.com/search?q='
 
 for new_n in new_ns:
     url += new_n
 
-url += n[-1]
+url += 'flipkart'
+
+googleSearch = requests.get(url)
+soup = BeautifulSoup(googleSearch.content, 'html.parser')
+
+firstSearch = soup.find(class_ = 'yuRUbf')
+
+
 
 r = requests.get(url)
 soup = BeautifulSoup(r.content, 'html.parser')

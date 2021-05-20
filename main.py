@@ -29,14 +29,10 @@ searchResults = soup.find_all(class_ = 'yuRUbf')
 
 # Searching for the link which has desired content
 for searchResult in searchResults:
-    print(searchResult.nextSibling.div)
-    print("\n\n\n\n\n\n")
     if searchResult.nextSibling.div != None:
         url = searchResult.a.get('href')
-        break
+        break  
 
-print(url)    
-'''
 r = requests.get(url)
 soup = BeautifulSoup(r.content, 'html.parser')
 
@@ -70,4 +66,3 @@ if flag == 0:
     print("Not Available")
     sleep(1)
     webbrowser.open(url)
-'''

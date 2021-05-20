@@ -23,7 +23,9 @@ googleSearch = driver.page_source
 driver.close()
 
 soup = BeautifulSoup(googleSearch, 'html.parser')
+
 url = ''
+msg = 'Alas!....Currently Unavailable'
 searchResults = soup.find_all(class_ = 'yuRUbf')
 
 
@@ -32,6 +34,11 @@ for searchResult in searchResults:
     if searchResult.nextSibling.div != None:
         url = searchResult.a.get('href')
         break  
+
+#if link not found
+if url == '':
+    url = searchResults[0].a.get('href')
+    msg = 'Select the one you like...'
 
 r = requests.get(url)
 soup = BeautifulSoup(r.content, 'html.parser')
@@ -57,12 +64,12 @@ flag = 0
 for txt in txts:
     if any(list in txt.get_text() for list in lists) and txt.get('disabled') == None:
         flag = 1
-        print("Product Available")
-        sleep(2)
+        print("Hurray!....Product is Available")
+        sleep(1)
         webbrowser.open(url)
         break
 
 if flag == 0:
-    print("Not Available")
+    print(msg)
     sleep(1)
     webbrowser.open(url)
